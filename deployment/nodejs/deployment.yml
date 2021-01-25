@@ -1,0 +1,27 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nodejs
+  labels:
+    app: nodejs-mongo
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-mongo
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: nodejs-mongo
+        tier: frontend
+    spec:
+      containers:
+      - image: wahaj123/nodejs
+        name: nodejs
+        ports:
+        - containerPort: 3000
+          name: nodejs  
+      # volumes:
+      # - name: mongo-persistent-storage
+      #   persistentVolumeClaim:
+      #     claimName: mongo-pv-claim

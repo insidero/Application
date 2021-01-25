@@ -1,0 +1,30 @@
+app:
+  name: nodejs-mongo
+mongo:
+  tier: mongo
+  deployment:
+    name: mongo
+    image: mongo
+    conatinerport: 27017 
+    strategy: Recreate
+  service:
+    name: mongo
+    port: 27017
+  pvc_name: mongo-persistent-storage
+nodejs:
+  tier: frontend
+  deployment:
+    name: nodejs
+    image: wahaj123/nodejs
+    containerport: 3000
+    strategy: Recreate
+  service:
+    type: NodePort
+    name: nodejs
+    port: 3000
+    targetport: 3000
+    nodeport: 30007
+pvc:
+  name: mongo-pv-claim
+  accessModes: ReadWriteOnce
+  storage: 5Gi

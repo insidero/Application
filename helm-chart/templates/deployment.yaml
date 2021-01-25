@@ -1,0 +1,55 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{.Values.mongo.deployment.name}}
+  labels:
+    app: {{.Values.app.name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Values.app.name}}
+      tier: {{.Values.mongo.tier}}
+  strategy:
+    type: {{.Values.mongo.deployment.strategy}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.app.name}}
+        tier: {{.Values.mongo.tier}}
+    spec:
+      containers:
+      - image: {{.Values.mongo.deployment.image}}
+        name: {{.Values.mongo.deployment.name}}
+        ports:
+        - containerPort: {{.Values.mongo.deployment.conatinerport}}
+          name: {{.Values.mongo.deployment.name}}
+      volumes:
+      - name: {{.Values.mongo.pvc_name}}
+        persistentVolumeClaim:
+          claimName: {{.Values.pvc.name}}
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nodejs
+  labels:
+    app: {{.Values.app.name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Values.app.name}}
+      tier: {{.Values.nodejs.tier}}
+  strategy:
+    type: {{.Values.nodejs.deployment.strategy}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.app.name}}
+        tier: {{.Values.nodejs.tier}}
+    spec:
+      containers:
+      - image: {{.Values.nodejs.deployment.image}}
+        name: {{.Values.nodejs.deployment.name}}
+        ports:
+        - containerPort: {{.Values.nodejs.deployment.containerport}}
+          name: {{.Values.nodejs.deployment.name}} 

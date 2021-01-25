@@ -1,0 +1,29 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: protectmysql
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: nodejs-mongo
+      tier: mongo
+  ingress: []
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allowwp
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: nodejs-mongo
+      tier: mongo
+  ingress:
+  - from:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          app: nodejs-mongo
+          tier: frontend
