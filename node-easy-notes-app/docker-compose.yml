@@ -6,6 +6,8 @@ services:
       - "27017:27017"
   nodejs:
     image: nodejs
+    depends_on: 
+      - mongo
     ports:
       - "3000:3000"
 

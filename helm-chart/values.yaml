@@ -28,3 +28,10 @@ pvc:
   name: mongo-pv-claim
   accessModes: ReadWriteOnce
   storage: 5Gi
+networkpolicy:
+  deny:
+    name: protectmongo
+    namespace: default
+  allow: 
+    name: allownodejs
+    namespace: default
