@@ -23,7 +23,7 @@ spec:
         ports:
         - containerPort: 27017
           name: mongo
-      # volumes:
-      # - name: mongo-persistent-storage
-      #   persistentVolumeClaim:
-      #     claimName: mongo-pv-claim
+      volumes:
+      - name: mongo-persistent-storage
+        persistentVolumeClaim:
+          claimName: mongo-pv-claim
